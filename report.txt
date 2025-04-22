@@ -139,5 +139,3 @@ The Carbon Credit Tracker effectively addresses the need for a streamlined, real
 - [MongoDB Documentation](https://www.mongodb.com/)
 
 ---
-
-Feel free to customize this report further by adding diagrams, screenshots, or any additional sections as required. If you need assistance with creating a downloadable ZIP of your full code or deploying your project online, let me know! 
