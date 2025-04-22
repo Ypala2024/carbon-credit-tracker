@@ -75,8 +75,6 @@ Level 1:
 
 Shows internal modules: Authentication, Trip Validation, Credit Calculation, Admin Approval Process.
 
-[Insert DFD Diagram Here]
-
 5.3 Entity-Relationship (ER) Diagram
 Key entities:
 
@@ -95,8 +93,6 @@ A user belongs to one organization.
 A user can log multiple trips.
 
 An organization has many users.
-
-[Insert ER Diagram Here]
 
 6. Implementation
 6.1 Technologies Used
