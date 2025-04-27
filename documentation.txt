@@ -1,0 +1,26 @@
+Server documentation
+db.js - MongoDB database
+authController.js - used for registration and login, hashes the password
+authMiddleware.js - used to verify (jsonweb) tokens
+User.js - defines the schema of a user
+Trips.js - defines the schema of a trip
+tripRoutes.js - used to calculate points for a trip based on the type
+employerRoutes.js - gets list of all employees of an employer and allows credit transfers.
+authRoutes.js - used for getting coordinates of home and work address
+adminRoutes.js - gets all employers pending approval and allows approval
+haversine.js - math related to distances between geographical points (in km)
+geocode.js - used for the OpenCage api which gives the geographical data
+
+Client documentation
+Main page index.html - basic webpage created with create-react-app
+index.js - creates a react root and then renders it
+App.js - page with registration, dashboard, employer-dashboard and admin dashboard
+Register.js - used for registration, allows user to register as an employee, employer or admin
+Login.js - used for logging in, validates if the credentials are correct and then takes the user to the appropriate dashboard for their role
+Dashboard.js - employee dashboard used to log trips, show credits. Can also update address from here.
+EmployerDashboard.js - allows the employer to see their employees id, name, email and credits as well as transfer carbon credits.
+AdminDashboard.js - allows admins to approve employers
+TripLogger.js - allows the user to log their trips and receive credits. Can select from public, carpool, rideshare or work from home
+CreditTransfer.js - allows the employer to transfer credits from one organization to another
+CreditChart.js - displays a visualization of the carbon credits accumulated
+AddressUpdater.js - used to update work and home addresses of employees
