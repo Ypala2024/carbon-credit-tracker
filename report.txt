@@ -1,189 +1,368 @@
-Carbon Credit Tracker – Project Report
-1. Title Page
-Project Title: Carbon Credit Tracker – A Web-Based Carbon Credit Management System
+Carbon Credit Tracker
 
+Introduction 
+The Carbon Credit Tracker is an innovative digital service that encourages and tracks sustainable modes of travel within organizations. This complete system allows employees to enter sustainable modes of transportation that they took while also giving employers the ability to track, verify, and recognize sustainable behaviors via carbon credits.
+In this document, we will go into depth about the technical details of the Carbon Credit Tracker system, describing the architecture, technologies, components, deployment, and implementation. The platform utilizes new web technologies to produce a scalable, secure and easy-to-use service for all individuals involved in corporate sustainability.
 
-2. Abstract
-The Carbon Credit Tracker is a robust, web-based application designed to streamline the process of monitoring, managing, and allocating carbon credits within organizations. With growing global awareness around climate change and sustainability, companies are increasingly looking for systems that promote and reward eco-friendly commuting and operations. This project leverages modern web technologies to facilitate transparent carbon credit tracking, integrates real-time geolocation services for validating commutes, and implements a secure, role-based access model.
 
-This system enables employees to log their daily eco-friendly commutes, such as walking, cycling, or public transport usage. Employers can monitor these logs, allocate carbon credits based on predefined criteria, and generate reports for internal review or sustainability audits. An administrative module ensures proper onboarding and approval of organizations while maintaining system integrity. The entire application is built with a three-tier architecture using React.js, Node.js, and MongoDB, ensuring scalability, maintainability, and performance.
+1.1     Purpose and scope 
+The Carbon Credit Tracker has been created in response to the growing corporate sustainability movement, and the need for corporate programs to quantify employee carbon impact reductions. The tool provides a comprehensive solution for recording, verifying, and rewarding sustainable commuting.
+1.2     Target audience 
+This technical document is intended for a wide variety of stakeholders in the life cycle of a system. It serves development and engineering teams for implementation, builds for system administrators and DevOps to manage infrastructure and deployments. Technical project managers will use the document to keep track of timelines and resources, quality assurance testing teams will need to understand testing standards, IT security will rely on security and compliance instructions, and sustainability managers will be introduced to some environmentally responsible practices. Collectively all of these groups will deliver a total, complete, secure, and efficient system development and operation.
 
-3. Introduction
-3.1 Background
-The detrimental impacts of climate change have led to an increased focus on reducing carbon emissions. One method of incentivizing lower emissions is through the use of carbon credits, which quantify reductions and allow them to be traded or offset against emissions. However, most organizations still rely on outdated, manual methods to track and manage these credits. These methods are inefficient, error-prone, and lack real-time oversight.
+1.3     Document conventions 
+Technical system components are presented in bold. Description of any interaction with a system is presented in sequential order with flow of data between components clearly delineated. Database schemas and API endpoints are denoted in a way that aids readability.
 
-This project introduces the Carbon Credit Tracker, a digital platform that automates and simplifies the process of logging, validating, and managing carbon credits within organizations. Through intuitive interfaces and automated geolocation validation, this platform aims to bring transparency, efficiency, and security to carbon management efforts.
+2. Platform Overview
 
-3.2 Objectives
-The primary goals of this project are:
+2.1 Business context
+The Carbon Credit Tracker is support for corporate social responsibility, enabling organizations to make less of an imprint on the planet through sustainable commuting efforts. It empowers organizations to help employees make better choices for the environment, track carbon avoided, and tie it in with other sustainability efforts. In conjunction with functionality to have organizations implement incentive mechanisms that actually reward green commuting options, the platform is designed to support companies who want to help the environment.
 
-To develop a user-centric platform for employees to log eco-friendly commute data.
+2.2 Core functionality
+The platform offers role based user registration for employees, administrators and system administrators, meaning each type of user will have different capabilities of what they can access. Employees will be prompted to log their eco commutes daily, which the system will verify to provide a carbon-neutral equivalency calculation. That carbon avoided will then be converted to carbon credits. Employers can then manage the distribution of credits and review sustainability metrics, while analytics can provide detail on an individual and an organization or group sustainability impact. Administrative capabilities will help facilitate governance of the system and platform adherence.
 
-To enable employers to track sustainability metrics and manage carbon credit distributions.
 
-To create an administrative interface for managing system-wide access and organizational approvals.
+2.3 Users
+Employees:
+Employees log their commute data, track personal carbon savings, and earn carbon credits. Employees can also update their personal information, to ensure accurate reporting and rewards.
 
-To incorporate geolocation services for validating commute distance and authenticity.
+Employers
+These users manage employee engagement, approve commute data, allocate credits, and report on sustainability developments. They are also responsible for user accounts in their organization.
 
-To enforce strict role-based access control, ensuring data privacy and secure user experiences.
+System Administrators:
+System Administrators manage the overall platform, verify organizations, manage the system's security, and review global analytics. They will manage user permissions and the overall capabilities of the system.
 
-4. System Analysis
-4.1 Existing System
-In many companies, tracking sustainable commuting practices is often done through spreadsheets or manual forms. These systems are:
+3. System Architecture
+3.1 Architectural Overview
+The Carbon Credit Tracker employs modern layered architecture that divides concerns into clear client-side and server-side implementations. The Carbon Credit Tracker utilizes a RESTful approach with three layers: user interface, business logic, and data, to improve maintainability and scalability.
 
-Time-consuming to manage.
+3.2 Technology Stack
+3.2.1 Frontend Technologies
+The client-side application is developed using React (v19.1) for rendering the UI with React Router (v7.5) used for navigation. Axios is implemented for securely communicating with the API, Recharts is used for data visualization, and Redux manages application state.
 
-Prone to human error and fraud.
+3.2.2 Backend Technologies 
+The server-side is built on Express (v5.1) and document storage is performed with MongoDB. Object modeling is handled by Mongoose (v8.13), while JWT and BCrypt are being used for secure user authentication and password encryption.
 
-Not scalable for medium-to-large enterprises.
+3.3 Infrastructure Component 
+The infrastructure component of the platform includes the web servers that handle the delivery of the frontend content, application servers that handle the logic, and clustered databases that handle storage and data. Load balancers handle incoming requests, content delivery networks (CDNs) to handle static assets, and monitoring services handle performance and reliability metrics.
 
-Lacking real-time insights and actionable analytics.
+3.4 Communication Patterns
+Communication follows standard RESTful practices over HTTPS. The system uses Mongoose for database interactions, JWT for session-based authentication, and React-based event handling for frontend user interaction.
 
-Inefficient at validating claimed commutes or estimating carbon credit equivalence.
 
-4.2 Proposed System
-The proposed Carbon Credit Tracker system is a fully web-based solution that offers:
 
-Real-Time Tracking: Employees can log trips immediately, with the data available to employers instantly.
 
-Automated Credit Calculation: Commutes are analyzed based on distance and mode of transport to generate carbon credit values.
 
-Role-Based Dashboards: Personalized interfaces for employees, employers, and administrators.
+4. Component Analysis
+4.1 Authentication Components
+4.1.1 Login Component
+This component enables secure user login via a validated form. It processes authentication requests, manages JWT tokens, updates global state via Redux, provides error feedback, and redirects users based on roles.
 
-Geolocation Integration: Utilizes APIs to verify distances between home and work addresses.
+4.1.2 Registration Component
+User registration is handled through multi-step forms with role-based logic. It validates input, captures organization data for employer accounts, and supports approval workflows for organizational users.
 
-Secure Access Control: Each user’s access is governed by their role using JWT-based authentication.
+4.2 Dashboard Components
+4.2.1 Employee Dashboard
+Employees access key tools here:
 
-5. System Design
-5.1 Architecture Overview
-The system employs a three-tier architecture:
+TripLogger allows commute logging, calculates distance and carbon savings, and offers calendar support.
 
-Frontend (Client Tier): Built using React.js, it provides an interactive and responsive user interface.
+CreditChart visualizes credits earned, shows trends, and enables export.
 
-Backend (Application Tier): Developed with Node.js and Express.js, it handles business logic, API routes, and user management.
+AddressUpdater lets users manage location data and receive route optimization suggestions.
 
-Database (Data Tier): Uses MongoDB for its flexibility and scalability in storing user data, logs, and carbon credit information.
+4.2.2 Employer Dashboard
+Employers use this dashboard to manage:
 
-5.2 Data Flow Diagram (DFD)
-Level 0:
+EmployeeList shows a searchable table of staff with activity metrics and export options.
 
-Users interact with the system via login and dashboard.
+CreditManager facilitates bulk credit distribution, approval workflows, and budget tracking.
 
-Employees log trips → System validates data → Updates trip records and credit balance.
+OrganizationStats provides performance reports, departmental breakdowns, and goal tracking.
 
-Level 1:
+4.2.3 Admin Dashboard
+Admins control:
 
-Shows internal modules: Authentication, Trip Validation, Credit Calculation, Admin Approval Process.
+OrganizationApproval handles verification of new entities, document review, and approval tracking.
 
-5.3 Entity-Relationship (ER) Diagram
-Key entities:
+SystemMetrics offers platform-wide performance stats, alerts, and anomaly detection.
 
-User: Attributes include ID, name, role, email, etc.
+UserManagement covers account control, roles, access logs, and compliance enforcement.
 
-Trip: Contains trip_id, date, distance, mode_of_transport.
+4.3 Management Components
+4.3.1 UserManager
+Manages user data updates, password resets, account deactivations, and role changes. Also handles notification preferences.
 
-Organization: org_id, name, status, admin_id.
+4.3.2 OrganizationManager
+Oversees organization profiles, department setup, admin roles, billing, and integration with external tools.
 
-CreditLedger: Tracks carbon credits assigned or used.
+4.3.3 CreditDistributor
+Administers the carbon credit system, defining credit rules, reward thresholds, and maintaining transaction audit trails.
 
-Relationships:
+5. Data Management
+5.1 Database Design Philosophy
+The platform uses MongoDB’s document-oriented model to ensure schema flexibility, high performance, scalability, and support for complex queries and data aggregation.
 
-A user belongs to one organization.
+5.2 Core Data Schemas
+5.2.1 User Schema
+Stores user identifiers, roles, credentials, organization links, location data, carbon credit balance, and account status flags.
 
-A user can log multiple trips.
+5.2.2 Trip Schema
+Captures trip details including user ID, date, transport type, distance, carbon savings, verification status, and organization context.
 
-An organization has many users.
+5.2.3 Organization Schema
+Maintains organization info, admin references, credit stats, employee data, and operational status.
 
-6. Implementation
-6.1 Technologies Used
+5.3 Data Relationships
+Key relationships include: one-to-many between organizations and users, users and trips, and administrators and organizations. Many-to-many links exist between organizations and credits.
 
-Component	Technology
-Frontend	React.js, HTML5, CSS3, Bootstrap
-Backend	Node.js, Express.js
-Database	MongoDB
-Authentication	JWT (JSON Web Tokens)
-Geolocation	OpenCage Geocoder API
-Hosting	Render / Vercel (optional)
-6.2 Functional Modules
-6.2.1 Employee Module
-User registration and login.
+5.4 Data Integrity and Validation
+Integrity is ensured via schema and business-level validations, transactional controls, referential integrity, uniqueness enforcement, and strict data formatting.
 
-Update profile including home and work addresses.
+5.5 Data Security
+Security includes field-level encryption, role-based access control, anonymization for analytics, audit logging, and data retention policies.
 
-Log daily trips and select mode of transport.
 
-View carbon credits earned in a graphical format.
+6. API Framework
+6.1 API Design Principles
+The Carbon Credit Tracker API adheres to RESTful design standards. It uses resource-oriented endpoints and standard HTTP methods for predictable interaction. All responses follow a consistent format and include proper status codes. Stateless processing ensures scalability, while pagination supports efficient handling of large datasets. Error responses are well-structured to aid in debugging and system integration.
 
-6.2.2 Employer Module
-Monitor trip logs of employees.
+6.2 Authentication Endpoints
+The authentication API supports complete identity management. The POST /api/auth/login endpoint verifies user credentials, issues JWT tokens, and returns role-based session data. POST /api/auth/register handles user creation with email validation and initiation of verification workflows. GET /api/auth/verify confirms token validity and can refresh expiration. POST /api/auth/logout securely terminates sessions and supports forced logouts for security.
 
-Approve/flag suspicious entries.
+6.3 Trip Management Endpoints
+Trip APIs enable users to log and manage commute data. The POST /api/trips/create endpoint records new trips, calculates carbon savings, and applies credit eligibility rules. Historical records can be retrieved using GET /api/trips/user/, with filters and pagination. Trip records can be updated via PUT /api/trips/ and deleted through DELETE /api/trips/, both enforcing access permissions and data integrity.
 
-Allocate and transfer carbon credits internally.
+6.4 Organization Management Endpoints
+Organization-related APIs allow company-level operations. POST /api/employer/register creates organization profiles and initializes admin roles. GET /api/employer/employees provides a filtered list of employees with performance metrics. PUT /api/employer/credits manages credit allocation, approval workflows, and budget enforcement. DELETE /api/employer/ handles removal of users and related data retention tasks.
 
-Generate downloadable reports for audits.
+6.5 API Response Format
+API responses follow a standard format that includes success indicators, data payloads, descriptive messages, and error codes. For list responses, pagination metadata is included to support frontend rendering and performance.
 
-6.2.3 Admin Module
-Review and approve employer registration requests.
 
-Deactivate organizations or users when needed.
+7. Security Implementation
+7.1 Authentication Security
+7.1.1 Password Hashing
+User passwords are secured with BCrypt hashing, which includes salting and adjustable work factors. Plaintext passwords are never stored or transmitted.
 
-Monitor platform usage and generate analytics.
+7.1.2 JWT Token Management
+Tokens are cryptographically signed to prevent tampering. Expiry policies are enforced, with refresh token mechanisms allowing session extension. Best practices for secure token storage on clients are recommended.
 
+7.1.3 Role-Based Access Control (RBAC)
+Roles define fine-grained permissions and follow a hierarchical structure. Authorization checks are context-aware and validate resource ownership before granting access.
 
-7. Testing
-7.1 Test Cases and Scenarios
+7.1.4 Session Management
+Session controls include enforced timeouts, concurrent session limits, and suspicious activity detection through device tracking. Forced logout capabilities are available for critical incidents.
 
-Feature | Test Description | Expected Result
-Login | Login with valid and invalid credentials | Proper access or error message
-Trip Logging | Enter trip with valid data | Trip is saved and credits calculated
-Distance Validation | Check between home and work using geolocation | Accurate distance displayed
-Role Access | Try accessing admin panel as employee | Access denied
+7.2 Data Security
+7.2.1 Input Validation
+All inputs are validated both client- and server-side. User data is sanitized, and strict type checking is enforced to prevent injection and logic flaws.
 
+7.2.2 XSS Prevention
+Output encoding, CSP headers, and secure templating help mitigate cross-site scripting. All user-generated content is sanitized before rendering.
 
-7.2 Testing Tools and Methodologies
-Manual testing for all workflows.
+7.2.3 CSRF Protection
+The platform uses anti-CSRF tokens for sensitive operations, along with secure cookie attributes and origin validation to enforce same-origin policies.
 
-Postman used to test backend APIs.
+7.2.4 Rate Limiting
+To prevent abuse, the system applies IP- and account-based rate limiting. Progressive backoff strategies and CAPTCHAs are used for suspicious request patterns.
 
-Chrome DevTools for UI and network inspection.
+7.3 Transport Security
+All data is transmitted over secure TLS/SSL channels. The platform enforces HTTPS with HSTS headers, certificate validation, and strong cipher suites to prevent interception.
 
-7.3 Results
-All major test cases passed across roles. Key validations were:
+7.4 Infrastructure Security
+Infrastructure-level protections include firewalls, segmented networks, intrusion detection systems, and regular patching. Access control and monitoring tools further secure backend systems.
 
-Distance calculation within 95% real-world accuracy.
+8. Quality Assurance
+8.1 Frontend Testing
+8.1.1 Unit Tests
+Frontend components are tested individually using React Testing Library with mocked dependencies to ensure functional accuracy and code isolation.
 
-JWT-based access control blocked unauthorised access effectively.
+8.1.2 Integration Tests
+These tests validate component interactions, including form submissions, state changes, and routing workflows across the UI.
 
-The carbon credit balance is updated correctly after each trip log.
+8.1.3 End-to-End Testing
+Comprehensive user journeys are simulated to ensure responsiveness, cross-browser compatibility, and performance benchmarks.
 
-8. Conclusion
-The Carbon Credit Tracker offers a scalable and user-friendly platform for organisations seeking to implement or refine their sustainability strategies. By automating the logging and validation of eco-friendly commutes, it not only boosts employee participation in green initiatives but also supports organisations in maintaining verifiable carbon records.
+8.1.4 Component Testing
+UI components undergo visual regression checks, accessibility validation, and handling of internationalization and edge cases.
 
-The use of modern web technologies ensures responsiveness and cross-platform accessibility. The integration of geolocation APIs enhances data authenticity, while the robust access control mechanisms uphold system integrity.
+8.2 Backend Testing
+8.2.1 API Endpoint Testing
+API endpoints are tested for request validation, proper formatting, status codes, and reliable error responses.
 
-This system has the potential to be expanded further into a centralized hub for sustainability monitoring.
+8.2.2 Database Operations Testing
+CRUD operations and transactions are verified for data integrity, query performance, and consistency.
 
-9. Future Enhancements
-Mobile Application: A native mobile app (Android/iOS) would allow users to log trips on the go.
+8.2.3 Authentication Testing
+Login, token handling, permission enforcement, and session management are all tested to ensure secure user access.
 
-Advanced Analytics: Implement dashboards with filters, charts, and historical trends using tools like D3.js or Chart.js.
+8.2.4 Load Testing
+Simulated high-traffic environments assess server performance, resource usage, and identify bottlenecks.
 
-Carbon Offset Marketplace: Enable organizations to trade or purchase credits from certified agencies.
+8.3 Quality Metrics
+Testing success is measured via code coverage, defect density, test pass rates, performance benchmarks, and indicators of technical debt.
 
-Gamification: Add features like badges and leaderboards to encourage green behavior.
+8.4 Continuous Integration
+Automated pipelines execute tests on code commits, scan for vulnerabilities, check code quality, and validate deployment readiness.
 
-Integration with Smart Cards or Transit APIs: Automatically pull trip data from transit cards for seamless logging.
 
-10. References
-OpenCage Geocoder API Documentation
 
-React.js Official Documentation
 
-Node.js Official Docs
 
-MongoDB Documentation
 
-JWT Authentication Guide
+9. Deployment Strategy
+9.1 Production Environment
+9.1.1 Frontend Deployment
+Optimized static files are served via CDN, with caching and version control to ensure fast and reliable delivery.
 
-Express.js Guide
+9.1.2 Backend Deployment
+Backend services are containerized, scaled horizontally, and balanced across servers to maintain availability.
+
+9.1.3 Database Deployment
+Databases are configured with replication, sharding, and automated backups for performance and data safety.
+
+9.2 Environment Configuration
+Separate environments—development, testing, staging, and production—allow safe code promotion and issue isolation.
+
+9.3 Deployment Pipeline
+Code is deployed through a CI/CD pipeline involving automated builds, tests, artifact versioning, and staged rollouts with verification steps.
+
+9.4 Monitoring and Logging
+The platform integrates real-time dashboards, centralized logs, performance metrics, and alerting to maintain operational visibility.
+
+
+10. Performance Considerations
+10.1 Frontend Performance
+Performance is optimized with code splitting, lazy loading, asset minification, caching, and efficient rendering strategies.
+
+10.2 API Performance
+The API supports response caching, optimized queries, connection pooling, asynchronous processing, and batched requests for speed.
+
+10.3 Database Performance
+Indexes, optimized document design, and caching layers improve database efficiency and scalability.
+
+10.4 Scalability Approach
+Scalability is achieved via horizontal and vertical scaling, microservices for heavy components, and load balancing across distributed nodes.
+
+11. Future Enhancements
+11.1 Planned Features
+11.1.1 Real-time Trip Tracking
+GPS and sensor-based monitoring will enable automated route logging and transport mode detection.
+
+11.1.2 Public Transportation Integration
+APIs from transit providers will support ticket validation, journey planning, and schedule optimization.
+
+11.1.3 Carbon Credit Marketplace
+A marketplace will allow users to exchange credits for products, donations, or intra-organization trading.
+
+11.1.4 Mobile Application
+Planned native apps will offer offline support, push notifications, and biometric login.
+
+11.1.5 Advanced Analytics Dashboard
+Predictive insights, machine learning, and custom reporting will enable deeper organizational benchmarking.
+
+11.2 Technical Improvements
+11.2.1 Microservices Architecture
+Services will be modularized, enabling independent scaling and discovery via an API gateway.
+
+11.2.2 GraphQL Implementation
+GraphQL will provide efficient, schema-driven data access with real-time subscription support.
+
+11.2.3 Real-time Notifications
+WebSockets and event-driven architecture will enable instant updates and message queuing.
+
+11.2.4 Enhanced Security Features
+Future improvements include MFA, anomaly detection, advanced encryption, and detailed audit logging.
+
+12. Technical Dependencies
+12.1 Frontend Dependencies
+The frontend uses React (v19.1), React Router (v7.5), Axios, Recharts, Redux, and various UI utilities for forms and visuals.
+
+12.2 Backend Dependencies
+The backend stack includes Express (v5.1), Mongoose (v8.13), JWT (v9.0.2), and BCrypt (v3.0.2), along with middleware for logging and security.
+
+12.3 Development Dependencies
+Development tools include Jest, React Testing Library, Webpack, Babel, ESLint, Prettier, mock servers, and documentation generators.
+
+12.4 Infrastructure Dependencies
+The infrastructure relies on Node.js, MongoDB, Nginx or Apache, optional container orchestration, and full monitoring/logging systems.
+
+13. Governance and Compliance
+13.1 Code Standards
+The development process follows well-established standards including consistent JavaScript/TypeScript style guides, standardized component structuring, and documented API design patterns. Code reviews are mandatory to ensure readability, maintainability, and adherence to quality benchmarks.
+
+13.2 Data Governance
+Data within the platform is managed using classification frameworks that reflect sensitivity levels. Retention and archiving policies are enforced, alongside access control principles. Data quality is maintained through validation standards and consistent metadata management practices.
+
+13.3 Compliance Considerations
+The platform is designed to comply with major data protection regulations such as GDPR and CCPA. It also supports environmental reporting and corporate social responsibility (CSR) frameworks. Accessibility standards, including WCAG, are followed to ensure inclusivity, and industry-specific compliance requirements are regularly assessed.
+
+13.4 Audit Capabilities
+Robust audit mechanisms are in place, including full activity logging, change tracking for sensitive data, and clear user action attribution. The platform enables generation of compliance reports and supports evidence collection for audits and regulatory reviews.
+
+
+14. Risk Management 
+14.1 Technical Risks 
+Technical risks encompass potential database performance issues under load, flaws or weaknesses in the authentication system, vulnerabilities coming from third-party dependencies, cases of data corruption, and ultimately failures during the integration process with external systems, among other risks. 
+
+14.2 Operational Risks 
+Operational risks focus on reasonably assuring high service availability, administering reliable and safe backups for backup and disaster recuperation, and maintaining strong incident response plans and processes. Change management processes and pathways for escalation are actively in place to ensure disruption is minimized as much as practicably achievable. 
+
+14.3 Security Risks 
+Security risks are characterized by scenarios related to unauthorized system access, injection attacks, XSS vulnerabilities, session hijacking, and unintended disclosure of data. Security risks will be approached based on proactive engagement along with ongoing assessment and will be established through specific provocation engagement processes. 
+
+14.4 Mitigation Strategies 
+Mitigation strategies will include the application of automated security testing, engagement in seasonal vulnerability scanning, and scheduled penetration testing for vulnerability observation and reduction. Code reviews have an emphasis on security, and efforts to educate the workforce with seasonal employee awareness training for increasing human error resistance are also in place.
+
+
+15. Conclusion
+
+
+The Carbon Credit Tracker represents a solid solution that helps companies to facilitate and measure greener commuting habits among employees. It embodies modular system design principles, security best practices, and an infinitely scalable infrastructure to help companies achieve their sustainability goals. As organizations increasingly embed environmental responsibility into strategy, this system becomes a valuable tool for achieving the goal of measuring impact against intention. Its flexible and extensible design helps to ensure that it can adapt to changing technological needs and sustainability goals years from now while maintaining security and performance.
+
+16.	Appendices
+
+16.1	Environment Configuration Templates
+
+# Backend Environment Configuration PORT=5000
+MONGODB_URI=mongodb://localhost:27017/carbon_tracker JWT_SECRET=your_jwt_secret
+NODE_ENV=development
+ 
+# Frontend Environment Configuration REACT_APP_API_URL=http://localhost:5000/api REACT_APP_ENV=development
+
+
+16.2	API Response Format Examples
+
+{
+"success": true, "data": {
+"user": {
+"id": "123",
+"name": "John Doe",
+"role": "employee", "carbonCredits": 150
+}
+},
+"message": "Operation successful"
+}
+
+
+
+16.3	Glossary of Terms
+Carbon Credit- A tradable certificate that gives the holder the right to emit a certain amount of carbon dioxide or other greenhouse gases.
+JWT- JSON Web Token- A compact, URL-safe means of representing claims to be transferred between two parties.
+ODM- An Object-Document Mapper is a programming technique to convert data between incompatible type systems in object-oriented programming languages.
+
+16.4	Reference Documentation
+React Documentation: https://reactjs.org/docs/getting-started.html
+MongoDB Documentation: https://docs.mongodb.com/
+Express Documentation: https://expressjs.com/en/api.html
+JWT Documentation: https://jwt.io/introduction/
+
+
+17.	UML Diagrams
+17.1.	Class Diagram:
+
+
+
+
+
